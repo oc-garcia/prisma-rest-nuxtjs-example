@@ -1,7 +1,7 @@
 export default defineNuxtConfig ({
   // Disable strict
   typescript: {
-    strict: true
+    strict: false
   },
   app: {
     head: {

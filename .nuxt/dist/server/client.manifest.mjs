@@ -1,1 +1,1 @@
-export { default } from "file:///home/oc-garcia/Documents/code/fastapp/rest-nuxtjs/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
+export { default } from "file:///home/oc-garcia/Documents/code/fastapp/prisma-rest-nuxtjs-example/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"

@@ -7,12 +7,12 @@
     "module": true,
     "resourceType": "script"
   },
-  "/home/oc-garcia/Documents/code/fastapp/rest-nuxtjs/node_modules/nuxt/dist/app/entry.js": {
+  "/home/oc-garcia/Documents/code/fastapp/prisma-rest-nuxtjs-example/node_modules/nuxt/dist/app/entry.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
     "isEntry": true,
-    "file": "/home/oc-garcia/Documents/code/fastapp/rest-nuxtjs/node_modules/nuxt/dist/app/entry.js"
+    "file": "/home/oc-garcia/Documents/code/fastapp/prisma-rest-nuxtjs-example/node_modules/nuxt/dist/app/entry.js"
   }
 }

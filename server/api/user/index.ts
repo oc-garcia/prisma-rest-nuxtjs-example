@@ -9,8 +9,8 @@ export default defineEventHandler(async (event) => {
       const limit = Number(query?.limit) || 10;
       const page = Number(query?.page) || 1;
       const skip = (page - 1) * limit;
-      const nameQuery = String(query?.name);
-      const emailQuery = String(query?.email);
+      const nameQuery = query?.name;
+      const emailQuery = query?.email;
       try {
         const users = await prisma.user.findMany({
           take: limit,
@@ -21,12 +21,7 @@ export default defineEventHandler(async (event) => {
           },
         });
 
-        const total = await prisma.user.count({
-          where: {
-            name: nameQuery,
-            email: emailQuery,
-          },
-        });
+        const total = await prisma.user.count();
 
         return {
           total: total,

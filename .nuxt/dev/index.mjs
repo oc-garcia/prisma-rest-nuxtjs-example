@@ -1105,19 +1105,32 @@ const _id_$1 = /*#__PURE__*/Object.freeze({
 });
 
 const index$2 = defineEventHandler(async (event) => {
-  var _a;
+  const query = getQuery$1(event);
+  console.log(query);
   switch (event.method) {
     case "GET":
-      const limit = 10;
-      const page = ((_a = event.context.query) == null ? void 0 : _a.page) || 1;
+      const limit = Number(query == null ? void 0 : query.limit) || 10;
+      const page = Number(query == null ? void 0 : query.page) || 1;
       const skip = (page - 1) * limit;
+      const nameQuery = String(query == null ? void 0 : query.name);
+      const emailQuery = String(query == null ? void 0 : query.email);
       try {
         const users = await prisma.user.findMany({
           take: limit,
-          skip
+          skip,
+          where: {
+            name: nameQuery,
+            email: emailQuery
+          }
+        });
+        const total = await prisma.user.count({
+          where: {
+            name: nameQuery,
+            email: emailQuery
+          }
         });
         return {
-          total: users.length,
+          total,
           limit,
           skip,
           data: users

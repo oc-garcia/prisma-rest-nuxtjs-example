@@ -817,6 +817,8 @@ const errorHandler = (async function errorhandler(error, event) {
   return send(event, html);
 });
 
+const _lazy_c97vnu = () => Promise.resolve().then(function () { return _id_$1; });
+const _lazy_GqEcHm = () => Promise.resolve().then(function () { return index$3; });
 const _lazy_wSluoX = () => Promise.resolve().then(function () { return author$1; });
 const _lazy_1Buypl = () => Promise.resolve().then(function () { return draftList_get$1; });
 const _lazy_K0Cybo = () => Promise.resolve().then(function () { return feed_get$1; });
@@ -829,6 +831,8 @@ const _lazy_g6sqw5 = () => Promise.resolve().then(function () { return user$1; }
 const _lazy_FZuN4g = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
+  { route: '/api/user/:id', handler: _lazy_c97vnu, lazy: true, middleware: false, method: undefined },
+  { route: '/api/user', handler: _lazy_GqEcHm, lazy: true, middleware: false, method: undefined },
   { route: '/author', handler: _lazy_wSluoX, lazy: true, middleware: false, method: undefined },
   { route: '/draft-list', handler: _lazy_1Buypl, lazy: true, middleware: false, method: "get" },
   { route: '/feed', handler: _lazy_K0Cybo, lazy: true, middleware: false, method: "get" },
@@ -1049,6 +1053,15 @@ const errorDev = /*#__PURE__*/Object.freeze({
   template: template$1
 });
 
+const _id_ = defineEventHandler(async (event) => {
+  return "Hello Nitro";
+});
+
+const _id_$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  default: _id_
+});
+
 var _a;
 const prismaClientSingleton = () => {
   return new PrismaClient();
@@ -1056,6 +1069,49 @@ const prismaClientSingleton = () => {
 const globalForPrisma = globalThis;
 const prisma = (_a = globalForPrisma.prisma) != null ? _a : prismaClientSingleton();
 globalForPrisma.prisma = prisma;
+
+const index$2 = defineEventHandler(async (event) => {
+  var _a;
+  switch (event.method) {
+    case "GET":
+      const limit = 10;
+      const page = ((_a = event.context.query) == null ? void 0 : _a.page) || 1;
+      const skip = (page - 1) * limit;
+      try {
+        const users = await prisma.user.findMany({
+          take: limit,
+          skip
+        });
+        return {
+          total: users.length,
+          limit,
+          skip,
+          data: users
+        };
+      } catch (error) {
+        console.error(error);
+      }
+      break;
+    case "POST":
+      const { name, email } = await readBody(event);
+      try {
+        const createUser = await prisma.user.create({
+          data: {
+            name,
+            email
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
+      break;
+  }
+});
+
+const index$3 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  default: index$2
+});
 
 const author = defineEventHandler(async (event) => {
   const { email } = await readBody(event);

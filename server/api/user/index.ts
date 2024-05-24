@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
             email,
           },
         });
+        return "User Created";
       } catch (error) {
         console.error(error);
       }
